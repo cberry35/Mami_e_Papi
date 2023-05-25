@@ -24,4 +24,4 @@ image_file_path2 = "C:\\Users\\MyersB\\Desktop\\DisplayRaspImg2.png"
 imageA = download_image(mamiurl, image_file_path)
 imageB = download_image(papiurl, image_file_path2)
 
-#print(filecmp.cmp(image_file_path, image_file_path2, shallow=True))
+print(filecmp.cmp(image_file_path, image_file_path2, shallow=True))
