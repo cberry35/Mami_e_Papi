@@ -2,6 +2,7 @@ import io
 from PIL import Image
 import requests
 import filecmp
+import time
 
 def download_image(urlpath, path):
     r = requests.get(urlpath, stream=True)
@@ -21,7 +22,10 @@ image_file_path = "C:\\Users\\MyersB\\Desktop\\DisplayRaspImg.png"
 image_file_path2 = "C:\\Users\\MyersB\\Desktop\\DisplayRaspImg2.png"
 
 
-imageA = download_image(mamiurl, image_file_path)
-imageB = download_image(papiurl, image_file_path2)
 
-print(filecmp.cmp(image_file_path, image_file_path2, shallow=True))
+
+while(filecmp.cmp(image_file_path, image_file_path2, shallow=True) == False):
+        time.sleep(10)
+        download_image(mamiurl, image_file_path)
+        download_image(papiurl, image_file_path2)
+        print(filecmp.cmp(image_file_path, image_file_path2, shallow=True))
