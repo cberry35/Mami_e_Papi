@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:rasp_pi_long_dist/Formatting.dart';
 import 'package:rasp_pi_long_dist/main.dart';
 import 'package:rasp_pi_long_dist/view/drawing_canvas/models/drawing_mode.dart';
 import 'package:rasp_pi_long_dist/view/drawing_canvas/models/sketch.dart';
@@ -55,7 +56,7 @@ class CanvasSideBar extends HookWidget {
       width: 300,
       height: MediaQuery.of(context).size.height < 680 ? 450 : 610,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color.fromARGB(255, 50, 50, 50),
         borderRadius: const BorderRadius.horizontal(right: Radius.circular(10)),
         boxShadow: [
           BoxShadow(
@@ -76,9 +77,11 @@ class CanvasSideBar extends HookWidget {
             const SizedBox(height: 10),
             const Text(
               'Shapes',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            const Divider(),
+            Divider(
+              color: Colors.white.withAlpha(150),
+            ),
             Wrap(
               alignment: WrapAlignment.start,
               spacing: 5,
@@ -100,7 +103,7 @@ class CanvasSideBar extends HookWidget {
                       Container(
                         width: 22,
                         height: 2,
-                        color: drawingMode.value == DrawingMode.line ? Colors.grey[900] : Colors.grey,
+                        color: drawingMode.value == DrawingMode.line ? const Color.fromARGB(255, 237, 182, 0) : Colors.grey,
                       ),
                     ],
                   ),
@@ -136,9 +139,12 @@ class CanvasSideBar extends HookWidget {
               children: [
                 const Text(
                   'Fill Shape: ',
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
                 Checkbox(
+                  hoverColor: const Color.fromARGB(255, 237, 182, 0).withAlpha(50),
+                  checkColor: const Color.fromARGB(255, 237, 182, 0),
+                  fillColor: MaterialStateProperty.all(Colors.grey),
                   value: filled.value,
                   onChanged: (val) {
                     filled.value = val ?? false;
@@ -153,9 +159,10 @@ class CanvasSideBar extends HookWidget {
                       children: [
                         const Text(
                           'Polygon Sides: ',
-                          style: TextStyle(fontSize: 12),
+                          style: TextStyle(fontSize: 12, color: Colors.white),
                         ),
                         Slider(
+                          activeColor: const Color.fromARGB(255, 237, 182, 0),
                           value: polygonSides.value.toDouble(),
                           min: 3,
                           max: 8,
@@ -172,25 +179,30 @@ class CanvasSideBar extends HookWidget {
             const SizedBox(height: 10),
             const Text(
               'Colors',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            const Divider(),
+            Divider(
+              color: Colors.white.withAlpha(150),
+            ),
             ColorPalette(
               selectedColor: selectedColor,
             ),
             const SizedBox(height: 20),
             const Text(
               'Size',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            const Divider(),
+            Divider(
+              color: Colors.white.withAlpha(150),
+            ),
             Row(
               children: [
                 const Text(
                   'Stroke Size: ',
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
                 Slider(
+                  activeColor: const Color.fromARGB(255, 237, 182, 0),
                   value: strokeSize.value,
                   min: 0,
                   max: 50,
@@ -204,9 +216,10 @@ class CanvasSideBar extends HookWidget {
               children: [
                 const Text(
                   'Eraser Size: ',
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 12, color: Colors.white),
                 ),
                 Slider(
+                  activeColor: const Color.fromARGB(255, 237, 182, 0),
                   value: eraserSize.value,
                   min: 0,
                   max: 80,
@@ -219,26 +232,37 @@ class CanvasSideBar extends HookWidget {
             const SizedBox(height: 20),
             const Text(
               'Actions',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            const Divider(),
+            Divider(
+              color: Colors.white.withAlpha(150),
+            ),
             Wrap(
               children: [
                 TextButton(
                   onPressed: allSketches.value.isNotEmpty ? () => undoRedoStack.value.undo() : null,
-                  child: const Text('Undo'),
+                  child: Text(
+                    'Undo',
+                    style: TextStyle(color: allSketches.value.isNotEmpty ? Colors.white : Colors.white.withAlpha(100)),
+                  ),
                 ),
                 ValueListenableBuilder<bool>(
                   valueListenable: undoRedoStack.value._canRedo,
                   builder: (_, canRedo, __) {
                     return TextButton(
                       onPressed: canRedo ? () => undoRedoStack.value.redo() : null,
-                      child: const Text('Redo'),
+                      child: Text(
+                        'Redo',
+                        style: TextStyle(color: canRedo ? Colors.white : Colors.white.withAlpha(100)),
+                      ),
                     );
                   },
                 ),
                 TextButton(
-                  child: const Text('Clear'),
+                  child: const Text(
+                    'Clear',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () => undoRedoStack.value.clear(),
                 ),
                 TextButton(
@@ -253,6 +277,7 @@ class CanvasSideBar extends HookWidget {
                   ,
                   child: Text(
                     backgroundImage.value == null ? 'Add Background(Work in Progress)' : 'Remove Background',
+                    style: TextStyle(color: Colors.white.withAlpha(100)),
                   ),
                 ),
               ],
@@ -260,28 +285,36 @@ class CanvasSideBar extends HookWidget {
             const SizedBox(height: 20),
             const Text(
               'Export',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            const Divider(),
+            Divider(
+              color: Colors.white.withAlpha(150),
+            ),
             Row(
               children: [
                 SizedBox(
                   width: 140,
                   child: TextButton(
-                    child: const Text('Export PNG'),
+                    child: const Text(
+                      'Save to Hunter',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () async {
                       Uint8List? pngBytes = await getBytes();
-                      if (pngBytes != null) saveFile(pngBytes, 'png');
+                      //if (pngBytes != null) saveFile(pngBytes, 'png');
                     },
                   ),
                 ),
                 SizedBox(
                   width: 140,
                   child: TextButton(
-                    child: const Text('Export JPEG'),
+                    child: const Text(
+                      'Save to Myers',
+                      style: TextStyle(color: Colors.white),
+                    ),
                     onPressed: () async {
                       Uint8List? pngBytes = await getBytes();
-                      if (pngBytes != null) saveFile(pngBytes, 'jpeg');
+                      // if (pngBytes != null) saveFile(pngBytes, 'png');
                     },
                   ),
                 ),
@@ -391,7 +424,7 @@ class _IconBox extends StatelessWidget {
           width: 35,
           decoration: BoxDecoration(
             border: Border.all(
-              color: selected ? Colors.grey[900]! : Colors.grey,
+              color: selected ? const Color.fromARGB(255, 237, 182, 0) : Colors.grey,
               width: 1.5,
             ),
             borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -402,7 +435,7 @@ class _IconBox extends StatelessWidget {
             child: child ??
                 Icon(
                   iconData,
-                  color: selected ? Colors.grey[900] : Colors.grey,
+                  color: selected ? const Color.fromARGB(255, 237, 182, 0) : Colors.grey,
                   size: 20,
                 ),
           ),

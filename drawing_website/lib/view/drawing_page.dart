@@ -31,7 +31,6 @@ class DrawingPage extends HookWidget {
       initialValue: 0,
     );
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Stack(
         children: [
           Container(
@@ -91,7 +90,7 @@ class _CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueGrey,
+      color: const Color.fromARGB(255, 50, 50, 50),
       height: kToolbarHeight,
       width: double.maxFinite,
       child: Padding(
@@ -107,14 +106,14 @@ class _CustomAppBar extends StatelessWidget {
                   animationController.reverse();
                 }
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.menu,
-                color: Colors.white,
+                color: Colors.white.withAlpha(200),
               ),
             ),
-            const Text(
+            Text(
               'Doodle Duo',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19, color: Colors.white.withAlpha(200)),
             ),
             const SizedBox.shrink(),
           ],

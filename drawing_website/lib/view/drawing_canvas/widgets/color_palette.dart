@@ -16,7 +16,7 @@ class ColorPalette extends HookWidget {
     List<Color> colors = [
       Colors.black,
       Colors.white,
-      Color.fromARGB(255, 237, 182, 0),
+      const Color.fromARGB(255, 237, 182, 0),
     ];
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class ColorPalette extends HookWidget {
                     width: 25,
                     decoration: BoxDecoration(
                       color: color,
-                      border: Border.all(color: selectedColor.value == color ? Colors.blue : Colors.grey, width: 1.5),
+                      border: Border.all(color: selectedColor.value == color ? const Color.fromARGB(255, 237, 182, 0) : Colors.grey, width: 1.5),
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                     ),
                   ),
@@ -55,7 +55,7 @@ class ColorPalette extends HookWidget {
               width: 30,
               decoration: BoxDecoration(
                 color: selectedColor.value,
-                border: Border.all(color: Colors.blue, width: 1.5),
+                border: Border.all(color: const Color.fromARGB(255, 237, 182, 0), width: 1.5),
                 borderRadius: const BorderRadius.all(Radius.circular(5)),
               ),
             ),
