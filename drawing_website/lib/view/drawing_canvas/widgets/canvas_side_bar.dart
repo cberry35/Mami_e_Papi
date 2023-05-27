@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
+import 'package:http/http.dart' as http;
 
 import 'package:file_picker/file_picker.dart';
 import 'package:file_saver/file_saver.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:rasp_pi_long_dist/Database.dart';
 import 'package:rasp_pi_long_dist/Formatting.dart';
 import 'package:rasp_pi_long_dist/main.dart';
 import 'package:rasp_pi_long_dist/view/drawing_canvas/models/drawing_mode.dart';
@@ -301,7 +304,7 @@ class CanvasSideBar extends HookWidget {
                     ),
                     onPressed: () async {
                       Uint8List? pngBytes = await getBytes();
-                      //if (pngBytes != null) saveFile(pngBytes, 'png');
+                      uploadImageToGitHub(pngBytes!, 'mami.png');
                     },
                   ),
                 ),
@@ -314,7 +317,7 @@ class CanvasSideBar extends HookWidget {
                     ),
                     onPressed: () async {
                       Uint8List? pngBytes = await getBytes();
-                      // if (pngBytes != null) saveFile(pngBytes, 'png');
+                      uploadImageToGitHub(pngBytes!, 'papi.png');
                     },
                   ),
                 ),
