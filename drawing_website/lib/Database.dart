@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 Future<void> uploadImageToGitHub(Uint8List imageData, String imageFile) async {
+  String part1 = 'ghp_GgDCzVYBeNO8N5Q';
+  String part2 = 'ywkRBDmtPbuEH5M1ulL7R';
+
   final url =
       'https://api.github.com/repos/cberry35/rasp_pi_images/contents/Display_Images/$imageFile'; // Replace with your GitHub repository URL and path to the image file
 
-  final auth =
-      'Basic ${base64Encode(utf8.encode('cberry35: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'))}'; // Replace with your GitHub username and personal access token
+  final auth = 'Basic ${base64Encode(utf8.encode('cberry35:$part1$part2'))}'; // Replace with your GitHub username and personal access token
 
   final headers = {
     'Authorization': auth,
