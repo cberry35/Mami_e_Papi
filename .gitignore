@@ -27,4 +27,4 @@ doc/api/
 .flutter-plugins-dependencies
 
 # Ignore personal access token
-accesstoken.txt
+accesstoken.dart
