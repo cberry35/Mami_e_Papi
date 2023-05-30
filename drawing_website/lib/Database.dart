@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 
 Future<void> uploadImageToGitHub(Uint8List imageData, String imageFile) async {
   final url =
-      'https://api.github.com/repos/cberry35/Mami_e_Papi/contents/Display_Images/$imageFile'; // Replace with your GitHub repository URL and path to the image file
+      'https://api.github.com/repos/cberry35/rasp_pi_images/contents/Display_Images/$imageFile'; // Replace with your GitHub repository URL and path to the image file
 
   final auth =
-      'Basic ${base64Encode(utf8.encode('cberry35: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'))}'; // Replace with your GitHub username and personal access token
+      'Basic ${base64Encode(utf8.encode('cberry35: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'))}'; // Replace with your GitHub username and personal access token
 
   final headers = {
     'Authorization': auth,
